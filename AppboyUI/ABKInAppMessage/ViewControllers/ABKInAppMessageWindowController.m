@@ -405,6 +405,9 @@ static NSInteger const KeyWindowRetryMaxCount = 10;
       }
       break;
   }
+  if ([self.inAppMessage.extras[@"dont_close_button_2"] isEqual: @"true"] && self.clickedButtonId == 1) {
+      return;
+  }
   [self hideInAppMessageViewWithAnimation:self.inAppMessage.animateOut];
 }
 
