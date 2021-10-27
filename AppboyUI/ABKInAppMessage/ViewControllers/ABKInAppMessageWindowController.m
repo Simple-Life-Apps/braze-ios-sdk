@@ -405,7 +405,11 @@ static NSInteger const KeyWindowRetryMaxCount = 10;
       }
       break;
   }
-  if ([self.inAppMessage.extras[@"dont_close_button_2"] isEqual: @"true"] && self.clickedButtonId == 1) {
+  NSString* clickedButtonId = self.clickedHTMLButtonId ?: @(self.clickedButtonId + 1).stringValue;
+  NSString* keyToCheck = [NSString stringWithFormat:@"%@%@", @"dont_close_button_" , clickedButtonId];
+  NSString* valueToCheck = self.inAppMessage.extras[keyToCheck];
+  BOOL shouldNotClose = [valueToCheck isEqual: @"true"];
+  if (shouldNotClose) {
       return;
   }
   [self hideInAppMessageViewWithAnimation:self.inAppMessage.animateOut];
